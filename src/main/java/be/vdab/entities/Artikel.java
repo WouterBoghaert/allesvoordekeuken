@@ -2,6 +2,7 @@ package be.vdab.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,4 +30,9 @@ public class Artikel implements Serializable {
 	public BigDecimal getVerkoopprijs() {
 		return verkoopprijs;
 	}	
+	
+	public BigDecimal getWinstPercentage() {
+		return verkoopprijs.subtract(aankoopprijs)
+			.divide(aankoopprijs, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+	}
 }
