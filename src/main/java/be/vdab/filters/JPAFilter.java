@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebFilter;
 public class JPAFilter implements Filter {
 	private static final EntityManagerFactory entityManagerFactory =
 		Persistence.createEntityManagerFactory("allesvoordekeuken");
+	private static final ThreadLocal<EntityManager> entityManagers = new ThreadLocal<>();
 	
 	
 	public void destroy() {
@@ -24,8 +25,15 @@ public class JPAFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setCharacterEncoding("UTF-8");
-		chain.doFilter(request, response);
+		entityManagers.set(entityManagerFactory.createEntityManager());
+		try {
+			request.setCharacterEncoding("UTF-8");
+			chain.doFilter(request, response);
+		}
+		finally {
+			entityManagers.get().close();
+			entityManagers.remove();
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
@@ -33,7 +41,7 @@ public class JPAFilter implements Filter {
 	}
 	
 	public static EntityManager getEntityManager() {
-		return entityManagerFactory.createEntityManager();
+		return entityManagers.get();
 	}
 
 }
