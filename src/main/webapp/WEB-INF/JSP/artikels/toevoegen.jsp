@@ -16,6 +16,9 @@
 			<input type="number" name="aankoopprijs" min="0.01" step="0.01" value="${param.aankoopprijs}" required>
 			<label for="verkoopprijs">Verkoopprijs:<span>${fouten.verkoopprijs}</span></label>
 			<input type="number" name="verkoopprijs" min="${param.aankoopprijs}" step="0.01" value="${param.verkoopprijs}" required>
+			<label><input type="radio" name="soort" value="F">Food<span>${fouten.soort}</span></label>
+			<!-- Hier nog de houdbaarheid schrijven, hieronder dan ook garantie, verkeerde repositories wegdoen -->
+			<label><input type="radio" name="soort" value="NF">Non-Food<span>${fouten.soort}</span></label>
 			<input type="submit" id="toevoegKnop" value="Toevoegen">
 		</form>
 		<script>
