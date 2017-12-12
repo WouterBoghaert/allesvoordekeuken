@@ -1,5 +1,6 @@
 package be.vdab.repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +19,11 @@ public class ArtikelRepository extends AbstractRepository {
 		return getEntityManager().createNamedQuery("Artikel.findByLikeNaam", Artikel.class)
 			.setParameter("naam", "%" + naam + "%")
 			.getResultList();
+	}
+	
+	public void algemenePrijsVerhoging(BigDecimal factor) {
+		getEntityManager().createNamedQuery("Artikel.algemenePrijsVerhoging")
+			.setParameter("factor", factor)
+			.executeUpdate();
 	}
 }
