@@ -16,15 +16,30 @@
 			<input type="number" name="aankoopprijs" min="0.01" step="0.01" value="${param.aankoopprijs}" required>
 			<label for="verkoopprijs">Verkoopprijs:<span>${fouten.verkoopprijs}</span></label>
 			<input type="number" name="verkoopprijs" min="${param.aankoopprijs}" step="0.01" value="${param.verkoopprijs}" required>
-			<label><input type="radio" name="soort" value="F">Food<span>${fouten.soort}</span></label>
-			<!-- Hier nog de houdbaarheid schrijven, hieronder dan ook garantie, verkeerde repositories wegdoen -->
-			<label><input type="radio" name="soort" value="NF">Non-Food<span>${fouten.soort}</span></label>
+			<label><input type="radio" name="soort" value="F" id="food" ${param.soort == "F" ? "checked" : ""}>Food<span>${fouten.soort}</span></label><br>
+			<label for="houdbaarheid">Houdbaarheid:<span>${fouten.houdbaarheid}</span></label>
+			<input type="number" min="1" step="1" value="${param.houdbaarheid}" name="houdbaarheid" id="houdbaarheid" required>
+			<label><input type="radio" name="soort" value="NF" id="nonfood" ${param.soort == "NF" ? "checked" : ""}>Non-Food<span>${fouten.soort}</span></label><br>
+			<label for="garantie">Garantie:<span>${fouten.garantie}</span></label>
+			<input type="number" min="0" step="1" value="${param.garantie}" name="garantie" id="garantie" required>
 			<input type="submit" id="toevoegKnop" value="Toevoegen">
 		</form>
 		<script>
 			document.getElementById("toevoegForm").addEventListener("submit", function(){
 				document.getElementById("toevoegKnop").disabled="true";
 			});
+			document.getElementById('food').onclick =
+				enableDisableInputs;
+			document.getElementById('nonfood').onclick =
+				enableDisableInputs;
+			enableDisableInputs();
+			function enableDisableInputs() {
+				document.getElementById('houdbaarheid').disabled =
+				! document.getElementById('food').checked;
+				document.getElementById('garantie').disabled =
+				! document.getElementById('nonfood').checked;
+			}
 		</script>
 	</body>
 </html>
+<!-- Hier nog de houdbaarheid schrijven, hieronder dan ook garantie, verkeerde repositories wegdoen -->

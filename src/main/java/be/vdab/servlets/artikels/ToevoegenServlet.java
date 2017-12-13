@@ -23,8 +23,6 @@ public class ToevoegenServlet extends HttpServlet {
 	private static final String VIEW = "/WEB-INF/JSP/artikels/toevoegen.jsp";
 	private static final String REDIRECT_URL = "%s/artikels/zoekopnummer.htm?id=%d";
 	private final transient ArtikelService artikelService = new ArtikelService();
-//    private final transient FoodArtikelService foodArtikelService = new FoodArtikelService();
-//    private final transient NonFoodArtikelService nonFoodArtikelService = new NonFoodArtikelService();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,7 +67,7 @@ public class ToevoegenServlet extends HttpServlet {
 			switch(soort) {
 			case "F":
 				String houdbaarheid = request.getParameter("houdbaarheid");
-				if(houdbaarheid != null && !houdbaarheid.trim().isEmpty()) {
+				if(StringUtils.isInt(houdbaarheid)) {
 					if(FoodArtikel.isHoudbaarheidValid(Integer.parseInt(houdbaarheid))) {
 						if(fouten.isEmpty()) {
 							artikel = 
@@ -86,7 +84,7 @@ public class ToevoegenServlet extends HttpServlet {
 				break;
 			case "NF":
 				String garantie = request.getParameter("garantie");
-				if(garantie != null && !garantie.trim().isEmpty()) {
+				if(StringUtils.isInt(garantie)) {
 					if(NonFoodArtikel.isGarantieValid(Integer.parseInt(garantie))) {
 						if(fouten.isEmpty()) {
 							artikel = 
@@ -103,6 +101,7 @@ public class ToevoegenServlet extends HttpServlet {
 				break;
 			default:
 				fouten.put("soort", "u moet een geldige keuze maken!");
+				break;
 			}
 		}
 		if(fouten.isEmpty()) {

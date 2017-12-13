@@ -20,7 +20,7 @@ public class NonFoodArtikel extends Artikel {
 	}
 	
 	public static boolean isGarantieValid(int garantie) {
-		return garantie > 0;
+		return garantie >= 0;
 	}
 	
 	public void setGarantie(int garantie) {
