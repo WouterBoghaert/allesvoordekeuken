@@ -22,6 +22,15 @@
 			<label><input type="radio" name="soort" value="NF" id="nonfood" ${param.soort == "NF" ? "checked" : ""}>Non-Food<span>${fouten.soort}</span></label><br>
 			<label for="garantie">Garantie:<span>${fouten.garantie}</span></label>
 			<input type="number" min="0" step="1" value="${param.garantie}" name="garantie" id="garantie" required>
+			<label>Artikelgroep: <span>${fouten.artikelgroep}</span>
+				<select name="artikelgroepId" size="${artikelgroepen.size()}" required>
+					<c:forEach items="${artikelgroepen}" var="artikelgroep">
+						<option value="${artikelgroep.id}"
+						${artikelgroep.id == param.artikelgroepId ? "selected" : ""}>
+						${artikelgroep.naam}</option>
+					</c:forEach>
+				</select>
+			</label>
 			<input type="submit" id="toevoegKnop" value="Toevoegen">
 		</form>
 		<script>
@@ -42,4 +51,3 @@
 		</script>
 	</body>
 </html>
-<!-- Hier nog de houdbaarheid schrijven, hieronder dan ook garantie, verkeerde repositories wegdoen -->

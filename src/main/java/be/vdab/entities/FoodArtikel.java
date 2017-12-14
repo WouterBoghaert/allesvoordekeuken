@@ -14,8 +14,8 @@ public class FoodArtikel extends Artikel {
 	protected FoodArtikel () {}
 	
 	public FoodArtikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs,
-		int houdbaarheid) {
-		super(naam, aankoopprijs, verkoopprijs);
+		int houdbaarheid, Artikelgroep artikelgroep) {
+		super(naam, aankoopprijs, verkoopprijs, artikelgroep);
 		setHoudbaarheid(houdbaarheid);
 	}
 	
@@ -32,5 +32,27 @@ public class FoodArtikel extends Artikel {
 	
 	public int getHoudbaarheid() {
 		return houdbaarheid;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + houdbaarheid;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof FoodArtikel))
+			return false;
+		FoodArtikel other = (FoodArtikel) obj;
+		if (houdbaarheid != other.houdbaarheid)
+			return false;
+		return true;
 	}
 }

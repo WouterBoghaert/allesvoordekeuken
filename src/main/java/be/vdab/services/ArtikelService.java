@@ -8,6 +8,7 @@ import javax.persistence.PersistenceException;
 
 import be.vdab.entities.Artikel;
 import be.vdab.repositories.ArtikelRepository;
+import vdab.be.exceptions.ArtikelBestaatAlException;
 
 public class ArtikelService extends AbstractService {
 	private final ArtikelRepository artikelRepository = new ArtikelRepository();
@@ -17,6 +18,9 @@ public class ArtikelService extends AbstractService {
 	}
 	
 	public void create(Artikel artikel) {
+		if(artikelRepository.findByNaam(artikel.getNaam()).isPresent()) {
+			throw new ArtikelBestaatAlException();
+		}
 		beginTransaction();
 		try {
 			artikelRepository.create(artikel);
@@ -49,5 +53,13 @@ public class ArtikelService extends AbstractService {
 	
 	public List<Artikel> findAll() {
 		return artikelRepository.findAll();
+	}
+	
+//	public List<Artikel> findByArtikelgroep(Artikelgroep artikelgroep) {
+//		return artikelRepository.findByArtikelgroep(artikelgroep);
+//	}
+	
+	public List<Artikel> findAllMetArtikelgroep() {
+		return artikelRepository.findAllMetArtikelgroep();
 	}
 }

@@ -22,4 +22,22 @@
 			order by a.naam
 		</query>
 	</named-query>
+	<named-query name="Artikel.findByNaam">
+		<query>
+			select a from Artikel a where a.naam = :naam
+		</query>
+	</named-query>
+	<named-query name="Artikelgroep.findAll">
+		<query>
+			select a from Artikelgroep a
+			order by a.naam
+		</query>
+	</named-query>
+<!-- 	<named-query name="Artikel.findByArtikelgroep"> -->
+<!-- 		<query> -->
+<!-- 			select a from Artikel a -->
+<!-- 			where a.artikelgroep = :artikelgroep -->
+<!-- 			order by a.naam -->
+<!-- 		</query> -->
+<!-- 	</named-query> -->
 </entity-mappings>

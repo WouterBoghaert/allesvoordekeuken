@@ -14,8 +14,8 @@ public class NonFoodArtikel extends Artikel {
 	protected NonFoodArtikel() {}
 	
 	public NonFoodArtikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs,
-		int garantie) {
-		super(naam, aankoopprijs, verkoopprijs);
+		int garantie, Artikelgroep artikelgroep) {
+		super(naam, aankoopprijs, verkoopprijs, artikelgroep);
 		setGarantie(garantie);
 	}
 	
@@ -32,5 +32,27 @@ public class NonFoodArtikel extends Artikel {
 	
 	public int getGarantie() {
 		return garantie;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + garantie;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof NonFoodArtikel))
+			return false;
+		NonFoodArtikel other = (NonFoodArtikel) obj;
+		if (garantie != other.garantie)
+			return false;
+		return true;
 	}
 }
